@@ -2,7 +2,7 @@ const userId = "PUT_LOGGED_IN_USER_ID_HERE";
 
 /* 👤 PROFILE */
 async function loadProfile() {
-  const res = await fetch(`http://localhost:5000/api/user/${userId}`);
+  const res = await fetch(`https://code-alpha-ecometric-backend-1.onrender.com/api/user/${userId}`);
   const user = await res.json();
 
   document.getElementById("content").innerHTML = `
@@ -14,7 +14,7 @@ async function loadProfile() {
 
 /* 📦 RECENT ORDERS */
 async function loadOrders() {
-  const res = await fetch(`http://localhost:5000/api/orders/${userId}`);
+  const res = await fetch(`https://code-alpha-ecometric-backend-1.onrender.com/api/orders/${userId}`);
   const orders = await res.json();
 
   document.getElementById("content").innerHTML =
@@ -30,7 +30,7 @@ function openCart() {
 
 /* 🚚 ORDER STATUS */
 async function checkStatus() {
-  const res = await fetch(`http://localhost:5000/api/order-status/${userId}`);
+  const res = await fetch(`https://code-alpha-ecometric-backend-1.onrender.com/api/order-status/${userId}`);
   const status = await res.json();
 
   document.getElementById("content").innerHTML =
@@ -41,7 +41,7 @@ async function checkStatus() {
 
 /* 🌐 CHANGE LANGUAGE */
 async function changeLanguage(lang) {
-  await fetch(`http://localhost:5000/api/user/language/${userId}`, {
+  await fetch(`https://code-alpha-ecometric-backend-1.onrender.com/api/user/language/${userId}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ language: lang })
@@ -49,3 +49,4 @@ async function changeLanguage(lang) {
 
   alert("Language updated");
 }
+
