@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Product Details</title>
+<style>
+
+body{
+  font-family:Arial;
+  background:#f4f6f8;
+  margin:0;
+  padding:20px;
+}
+
+.container{
+  max-width:900px;
+  margin:auto;
+  background:#fff;
+  padding:25px;
+  border-radius:18px;
+  box-shadow:0 12px 30px rgba(0,0,0,.15);
+  display:flex;
+  gap:25px;
+  flex-wrap:wrap;
+}
+
+.image{
+  flex:1;
+}
+
+.image img{
+  width:100%;
+  border-radius:14px;
+}
+
+.details{
+  flex:1;
+}
+
+.details h1{
+  margin-top:0;
+}
+
+.price{
+  color:#28a745;
+  font-size:26px;
+  font-weight:bold;
+}
+
+.buttons{
+  margin-top:20px;
+  display:flex;
+  gap:15px;
+  flex-wrap:wrap;
+}
+
+button{
+  flex:1;
+  padding:14px;
+  border:none;
+  border-radius:10px;
+  font-size:16px;
+  cursor:pointer;
+}
+
+.cart{
+  background:#ff9800;
+  color:white;
+}
+
+.buy{
+  background:#28a745;
+  color:white;
+}
+
+button:hover{
+  opacity:.9;
+}
+
+/* Responsive */
+@media(max-width:700px){
+  .container{
+    flex-direction:column;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<div class="image">
+  <img id="productImg">
+</div>
+
+<div class="details">
+  <h1 id="productName"></h1>
+  <p id="productDesc"></p>
+  <div class="price" id="productPrice"></div>
+
+  <div class="buttons">
+    <button class="cart" onclick="addToCart()">Add To Cart</button>
+    <button class="buy" onclick="buyNow()">Buy Now</button>
+  </div>
+</div>
+
+</div>
+
+<script>
+
+function addToCart(){
+
+ let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+ const exists = cart.find(p => p._id === currentProduct._id);
+
+ if(exists){
+   exists.quantity++;
+ } else {
+   cart.push({...currentProduct, quantity:1});
+ }
+
+ localStorage.setItem("cart", JSON.stringify(cart));
+ alert("Added to cart 🛒");
+}
+
+
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+fetch(`http://localhost:5000/api/products/${id}`)
+.then(res => res.json())
+.then(product => {
+
+  document.getElementById("productImg").src = product.image;
+  document.getElementById("productName").innerText = product.name;
+  document.getElementById("productDesc").innerText = product.description;
+  document.getElementById("productPrice").innerText = "₹" + product.price;
+
+  window.currentProduct = product;
+});
+
+
+fetch("http://localhost:5000/api/products")
+.then(res => res.json())
+.then(products => {
+
+  const container = document.querySelector(".products");
+  container.innerHTML = "";
+
+  products.forEach(p => {
+    container.innerHTML += `
+      <div class="card" onclick="openProduct('${p._id}')">
+        <img src="${p.image}">
+        <h3>${p.name}</h3>
+        <p class="price">₹${p.price}</p>
+      </div>
+    `;
+  });
+});
+
+function openProduct(id){
+  window.location.href = `product1.html?id=${id}`;
+}
+
+const product = JSON.parse(localStorage.getItem("selectedProduct"));
+
+document.getElementById("productImg").src = product.img;
+document.getElementById("productName").innerText = product.name;
+document.getElementById("productDesc").innerText = product.desc;
+document.getElementById("productPrice").innerText = "₹" + product.price;
+
+function addToCart(){
+
+ let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+ const exists = cart.find(p=>p.id===product.id);
+
+ if(exists){
+   exists.quantity += 1;
+ }else{
+   cart.push({...product, quantity:1});
+ }
+
+ localStorage.setItem("cart", JSON.stringify(cart));
+
+ alert("Added to cart 🛒");
+}
+
+function buyNow(){
+  addToCart();
+  window.location.href="payment.html";
+}
+
+</script>
+</body>
+</html>

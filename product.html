@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Products | ECOMETRIX</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+}
+
+/* Page title */
+.page-title {
+  text-align: center;
+  margin: 30px 0;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+/* Product grid */
+.products {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
+}
+
+/* Product card */
+.product-card {
+  background: white;
+  border-radius: 14px;
+  padding: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+  transition: 0.3s ease;
+  text-align: center;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 18px 35px rgba(0,0,0,0.2);
+}
+
+/* Image */
+.product-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Info */
+.product-card h3 {
+  margin: 12px 0 6px;
+}
+
+.product-card p {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Buttons */
+.btn-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.btn-group button {
+  flex: 1;
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.add-cart {
+  background: #222;
+  color: white;
+}
+
+.buy-now {
+  background: #ff9800;
+  color: white;
+}
+
+.btn-group button:hover {
+  opacity: 0.9;
+}
+
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 30px;
+  background:#222;
+  color:white;
+}
+
+.logo{
+  margin:0;
+}
+
+.cart-icon{
+  position:relative;
+  font-size:26px;
+  cursor:pointer;
+}
+
+.cart-icon span{
+  position:absolute;
+  top:-8px;
+  right:-12px;
+  background:red;
+  color:white;
+  font-size:12px;
+  padding:2px 6px;
+  border-radius:50%;
+}
+
+</style>
+</head>
+
+<body>
+
+<h2 class="page-title">Electronics Product</h2>
+
+<div class="products" id="productList"></div>
+
+<div class="navbar">
+  <h2 class="logo">ECOMETRIX</h2>
+
+  <div class="cart-icon" onclick="goToCart()">
+    🛒
+    <span id="cartCount">0</span>
+  </div>
+</div>
+
+
+<script>
+const products = [
+  {
+    id: 101,
+    name: "Nike Running Shoes",
+    price: 3999,
+    image: "./img/nike.jpg"
+  },
+  {
+    id: 102,
+    name: "Wireless Headphones",
+    price: 2599,
+    image: "./img/wireless.jpeg"
+  },
+  {
+    id: 103,
+    name: "Smart Watch",
+    price: 4999,
+    image: "./img/smarth watch.jpeg"
+  },
+  {
+    id: 104,
+    name: "Bluetooth Speaker",
+    price: 1899,
+    image: "./img/bluethooth speaker.jpg"
+  },
+  {
+    id: 105,
+    name: "EvoFox Starter Series Spectre USB Wired Gaming Mouse | Upto 3600 DPI Gaming Sensor | 6 Buttons | Upto 7 Million Clicks | 7 Colours Rainbow Lighting with Breathing Effect | 1.5m Braided Cable (Black)",
+    price: 1499,
+    image: "./img/gaming mouse.jpg"
+  },
+  {
+    id: 106,
+    name: "ZEBRONICS-Transformer-M with a High-Performance Gold-Plated USB Mouse: 6 Buttons, Multi-Color LED Lights,High-Resolution Sensor with max 3600 DPI, and DPI Switch(Black)",
+    price: 287,
+    image: "./img/gaming mouse2.jpg"
+  },
+  {
+    id: 107,
+    name: "EvoFox Blaze Ultra Value 8 Button Programmable Gaming Mouse with 1000Hz Polling Rate | Gaming Grade DPI 200 to 12800 | Ultra-Responsive 7000fps | RGB Lights with Music sync Mode | Windows Software",
+    price: 609,
+    image: "./img/gaming mouse3.jpg"
+  },
+  {
+    id: 108,
+    name: "Ant Esports GM100 V2 Optical Gaming Mouse,7 Button Wired USB Mouse, 4000 FPS Sensor, 3600 DPI, RGB Lighting,1.5m PVC Cable, Ergonomic Design, for Windows PC, Laptop,Gaming & Office Use- Black & White",
+    price: 349,
+    image: "./img/gaming mouse4.jpg"
+  },
+  {
+    id: 109,
+    name: "ASUS Chromebook CX1405, Intel Celeron N4500, 8GB RAM, 128GB, FHD 14(35.56cm), Chrome OS, Quiet Blue, 1.4Kg, CX1405CKA-S60394, Intel UHD Graphics, 42WHrs, Thin & Light Laptop",
+    price: 23990,
+    image: "./img/asus laptop.jpg"
+  },
+  {
+    id: 110,
+    name: "HP 15, 13th Gen Intel Core i3-1315U (12GB DDR4, 512GB SSD) FHD, Anti-Glare, Micro-Edge, 15.6''/39.6cm, Win11, M365 Basic(1yr)* Office24, Silver, 1.59kg, fd0573TU, FHD Camera w/Shutter Laptop",
+    price: 39490,
+    image: "./img/HP.jpg"
+  },
+  
+  {
+    id: 111,
+    name: " Acer Aspire 5 13th Gen Intel Core i3 (8 GB RAM/512 GB SSD/Windows 11 Home/MS Office), A515-58M 15.6 Full HD Display, Steel Gray, 1.75 KG",
+    price: 140099,
+    image: "./img/acer laptop.jpg"
+  },
+  {
+    id: 112,
+    name: " 2020 Acer Aspire 3 15.6 Full HD 1080P Laptop PC, Intel Core i5-1035G1 Quad-Core Processor, 8GB DDR4 RAM, 256GB SSD, Ethernet, HDMI, Wi-Fi, Webcam, Numeric Keypad, Windows 10 Home, Steel Gray",
+    price: 140099,
+    image: "./img/acer laptop1.jpg"
+  },
+  {
+    id: 113,
+    name: " HP 17 17.3 1920 x 1080 Full HD Business Laptop Computer, 6 Core AMD Ryzen 5 5500U, 8GB RAM, 256GB PCIe SSD, Fingerprint, Numeric Keypad, Wi-Fi 5, Bluetooth 4.2, Windows 10 Home (S Mode), w/Battery",
+    price: 140099,
+    image: "./img/HP.jpg"
+  },
+    {
+    id: 114,
+    name: " HP Pavilion x360, 13th Gen Intel Core i5-1335U (16GB DDR4, 512GB SSD) Touchscreen, 14/35.6cm, FHD, Win 11, Office 21, Silver, 1.51kg, ek1074tu/1148tu, Iris Xe, FPR, 5MP Camera, Backlit KB Laptop",
+    price: 140099,
+    image: "./img/HP2.jpg"
+  },
+    {
+    id: 115,
+    name: "HP 17 Laptop, 17.3” HD+ Display, 11th Gen Intel Core i3-1125G4 Processor, 8GB RAM, 512GB SSD, Wi-Fi, HDMI, Webcam, Windows 11 Home, Silver",
+    price: 140099,
+    image: "./img/HP1.jpg"
+  },
+  {
+    id: 116,
+    name: "Apple 2025 MacBook Air (13-inch, Apple M4 chip with 10-core CPU and 10-core GPU, 24GB Unified Memory, 512GB) - Sky Blue",
+    price: 131990,
+    image: "./img/apple.jpg"
+  },
+  {
+    id: 117,
+    name: "Apple 2024 MacBook Pro Laptop with M4 chip with 10‑core CPU and 10‑core GPU: Built for Apple Intelligence, (14.2″) Liquid Retina XDR Display, 14GB Unified Memory, 1TB SSD Storage; Space Black",
+    price: 195990,
+    image: "./img/apple1.jpg"
+  },
+  {
+    id: 118,
+    name: "iPhone 17 Pro 256 GB: 15.93 cm (6.3″) Display with Promotion up to 120Hz, A19 Pro Chip, Breakthrough Battery Life, Pro Fusion Camera System with Center Stage Front Camera; Cosmic Orange",
+    price: 134000,
+    image: "./img/iphone17pro.jpg"
+  },
+  {
+    id: 119,
+    name: "iPhone 17 Pro Max 256 GB: 17.42 cm (6.9″) Display with Promotion, A19 Pro Chip, Best Battery Life in Any iPhone Ever, Pro Fusion Camera System, Center Stage Front Camera; Silver",
+    price: 1490000,
+    image: "./img/iphone17pro1.jpg"
+  },
+  {
+    id: 120,
+    name: "iPhone 17 Pro 256 GB: 15.93 cm (6.3″) Display with Promotion up to 120Hz, A19 Pro Chip, Breakthrough Battery Life, Pro Fusion Camera System with Center Stage Front Camera; Deep Blue",
+    price: 134000,
+    image: "./img/iphone17pro2.jpg"
+  },
+  {
+    id: 121,
+    name: "iPhone Air 256 GB: Thinnest iPhone Ever, 16.63 cm (6.5″) Display with Promotion up to 120Hz, Powerful A19 Pro Chip, Center Stage Front Camera, All-Day Battery Life; Sky Blue",
+    price: 99000,
+    image: "./img/iphoneair.jpg"
+  },
+  {
+    id: 122,
+    name: "iPhone 16 Pro 128 GB: 5G Mobile Phone with Camera Control, 4K 120 fps Dolby Vision and a Huge Leap in Battery Life. Works with AirPods; White Titanium",
+    price: 190000,
+    image: "./img/iphone16.jpg"
+  }
+];
+
+let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+function renderProducts() {
+  const container = document.getElementById("productList");
+  container.innerHTML = "";
+
+  products.forEach(p => {
+    container.innerHTML += `
+      <div class="product-card">
+        <img src="${p.image}">
+        <h3>${p.name}</h3>
+        <p>₹${p.price}</p>
+
+        <div class="btn-group">
+          <button class="add-cart" onclick="addToCart(${p.id})">
+            Add to Cart
+          </button>
+          <button class="buy-now" onclick="buyNow(${p.id})">
+            Buy Now
+          </button>
+        </div>
+      </div>
+    `;
+  });
+}
+
+function updateCartCount(){
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  let totalQty = cart.reduce((sum,item)=> sum + item.quantity, 0);
+
+  document.getElementById("cartCount").innerText = totalQty;
+}
+
+function goToCart(){
+  window.location.href = "cart.html";
+}
+
+// Call when page loads
+updateCartCount();
+
+
+async function addToCart(productId){
+
+  const product = products.find(p => p.id === productId);
+
+  await fetch("http://localhost:5000/api/cart/add",{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({
+      userId:"demoUser",
+      product
+    })
+  });
+
+  alert("Added to cart 🛒");
+}
+
+
+/*function addToCart(productId) {
+  const product = products.find(p => p.id === productId);
+  const existing = cart.find(item => item.id === productId);
+
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    cart.push({ ...product, quantity: 1 });
+  }
+
+  localStorage.setItem("cart", JSON.stringify(cart));
+  alert("Added to cart 🛒");
+}*/
+
+/*function buyNow(productId) {
+  
+  // save product for payment page
+  localStorage.setItem("buyNowProduct", JSON.stringify({ productId }));
+
+  // redirect to payment page
+  window.location.href = `payment.html?id=${productId}`;
+}*/
+
+function buyNow(productId) {
+  const product = products.find(p => p.id === productId);
+
+  const purchase = [
+    {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      quantity: 1
+    }
+  ];
+
+  localStorage.setItem("buyNowProduct", JSON.stringify(purchase));
+
+  window.location.href = `payment.html?id=${productId}`;
+}
+
+
+renderProducts();
+</script>
+
+</body>
+</html>

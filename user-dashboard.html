@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECOMETRIX</title>
+    <link rel="icon" type="Image/jpeg" href="logo.png">
+    
+    <style>
+body {
+  margin: 0;
+  padding-top: 90px;   /* navbar height + small gap */
+  font-family: Arial;
+  background-color: #9AE4CB;
+}
+
+/* Navbar */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;              /* normal height */
+  background: #4CA8DD;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 20px;
+  z-index: 1000;
+}
+
+
+/* Logo */
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  color: #292F91;
+  
+}
+
+/* 🔍 Search Bar (same as before) */
+.search-container {
+  display: flex;
+  align-items: center;
+  width: 320px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 50px;
+  padding: 6px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  
+}
+
+.search-container input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 10px 14px;
+  font-size: 14px;
+  border-radius: 50px;
+  background: transparent;
+}
+
+.search-container button {
+  border: none;
+  background:grey;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.search-container:focus-within {
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.35);
+}
+
+/* Right side nav 
+.nav-right {
+  margin-left: auto;
+}*/
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+}
+
+.drop-btn {
+  background:grey;
+  color: white;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.drop-btn:hover {
+  background: #333;
+}
+
+/* Dropdown menu */
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 120%;
+  background: white;
+  color: black;
+  min-width: 160px;
+  border-radius: 8px;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+  display: none;
+  overflow: hidden;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 12px 16px;
+  text-decoration: none;
+  color: black;
+}
+
+.dropdown-menu a:hover {
+  background: #f2f2f2;
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .search-container {
+    width: 200px;
+  }
+}     
+/* Product Display*/
+.products {
+  width: 100%;
+  max-width: 1200px;      /* controls how many cards fit */
+  margin: 0 auto;         /* centers container */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 25px;
+  padding: 30px;
+}
+
+.product-card {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  text-align: center;
+  transition: all 0.35s ease;
+  cursor: pointer;
+  width: 100%;
+  max-width: none;
+
+}
+
+.product-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.2);
+}
+.image-box img {
+  transition: transform 0.4s ease;
+}
+
+.product-card:hover .image-box img {
+  transform: scale(1.08);
+}
+.btn-group button {
+  transition: all 0.3s ease;
+}
+
+.btn-group button:hover {
+  transform: translateY(-2px);
+}
+
+
+/*.product-card2 {
+  background: #fff;
+  border-radius: 14px;
+  padding: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  text-align: center;
+}*/
+
+.image-box {
+  position: relative;
+}
+
+.main-img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+/* Thumbnails */
+.thumbs {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.thumbs img {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  object-fit: cover;
+  cursor: pointer;
+  opacity: 0.6;
+  border: 2px solid transparent;
+}
+
+.thumbs img:hover {
+  opacity: 1;
+  border-color: #111;
+}
+
+/* Button */
+.btn-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.btn-group button {
+  flex: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.btn-group button:first-child {
+  background: #111;
+  color: white;
+}
+
+.btn-group .buy {
+  background: #ff9800;
+  color: white;
+}
+
+.btn-group button:hover {
+  opacity: 0.9;
+}
+/* NEW UPDATED CODE FOR SEARCH BAR*/
+
+.product-card { border: 1px solid #ccc; border-radius: 8px; padding: 10px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .product-card img { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; }
+    .product-card h3 { margin: 10px 0 5px 0; font-size: 18px; }
+    .product-card button { margin: 5px 5px 0 0; padding: 8px 12px; cursor: pointer; border-radius: 5px; border: none; }
+    .add-cart { background-color: #28a745; color: white; }
+    .buy-now { background-color: #007bff; color: white; }
+    .quantity-input { width: 50px; padding: 5px; margin-left: 5px; }
+    #cart { margin-top: 40px; border-top: 2px solid #000; padding-top: 20px; }
+
+    /* Product Display */
+
+    body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f2f2f2;
+}
+
+/* Banner */
+.banner {
+  background: linear-gradient(to right,#ff9a3c,#ffd194);
+  padding: 40px;
+  text-align: center;
+  color: white;
+  font-size: 26px;
+  font-weight: bold;
+}
+
+/* Product grid */
+.products-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 30px;
+}
+
+/* Card */
+.product-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,.1);
+  transition: transform .3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-8px);
+}
+
+/* Image */
+.product-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+/* Content */
+.product-info {
+  padding: 15px;
+}
+
+.product-info h3 {
+  font-size: 18px;
+  margin: 5px 0;
+}
+
+.product-info p {
+  color: #666;
+  font-size: 14px;
+}
+
+.price {
+  color: #e67e22;
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+/* Button */
+.buy-btn {
+  width: 100%;
+  padding: 10px;
+  background: #ff9f00;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  border-radius: 0 0 12px 12px;
+}
+
+.buy-btn:hover {
+  background: #fb8c00;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(250px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:#fff;
+  border-radius:14px;
+  padding:15px;
+  box-shadow:0 8px 20px rgba(0,0,0,.12);
+  cursor:pointer;
+  transition:.3s;
+}
+
+.card:hover{
+  transform:translateY(-6px);
+}
+
+.card img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  border-radius:12px;
+}
+
+.card h3{
+  margin:10px 0 5px;
+}
+
+.price{
+  color:#28a745;
+  font-size:18px;
+  font-weight:bold;
+}
+
+</style>
+</head>
+<body>
+  <!--Nav Bar-->
+  <nav class="navbar">
+  <div class="logo">
+    <img src="logo.png" width="100" height="40"> ECOMETRIX
+  </div>
+
+  <div class="search-container">
+    <input
+  type="text"
+  id="searchInput"
+  placeholder="Search products..."
+  onkeyup="if(event.key === 'Enter') searchProduct()"
+/>
+
+<button onclick="searchProduct()">Search</button>
+
+    <script src="search.js"></script>
+  </div>
+
+  <div class="nav-right">
+    <div class="dropdown">
+      <button class="drop-btn">Menu ▾</button>
+      <div class="dropdown-menu">
+        <a onclick="loadProfile()">Profile</a>
+        <a onclick="loadOrders()">Recent Orders</a>
+        <a onclick="loadCart()">Cart</a>
+        <a onclick="checkStatus()">Order Status</a>
+      </div>
+    </div>
+
+    <select onchange="changeLanguage(this.value)">
+      <option value="en">English</option>
+      <option value="ta">தமிழ்</option>
+      <option value="hi">हिंदी</option>
+      <option value="fr">Français</option>
+    </select>
+  </div>
+</nav>
+
+<!-- Banner -->
+<section class="banner">
+  <h1>Where India's Next Brands Get Launched</h1>
+</section>
+
+<!-- Product Grid -->
+<section class="products-container" id="products"></section>
+
+<script src="products.js"></script>
+
+<!-- Product 1-->
+
+<div class="products">
+  
+  <div class="product-card">
+  <div class="image-box">
+    <img src="img/shoe1.jpg" class="main-img" />
+
+    <div class="thumbs">
+      <img src="img/shoe1.1.jpg" onclick="changeImage(this)" />
+      <img src="img/shoe1.2.jpeg" onclick="changeImage(this)" />
+      <img src="img/shoe1.4.jpg" onclick="changeImage(this)" />
+      <img src="img/shoe1.jpg" onclick="changeImage(this)" />
+    </div>
+  </div>
+
+  <h3>Nike Running Shoe</h3>
+  <p>₹3,999</p>
+
+  <div  class="btn-group">
+    <button onclick="addToCart('1','Nike Running Shoe',3999,'img/shoe1.jpg')">
+      Add to Cart
+    </button>
+    <button class="buy" onclick="buyNow('1','Nike Running Shoe',3999,'img/shoe1.jpg')">
+      Buy Now
+    </button>
+  </div>
+
+  
+  <script src="product1.js"></script>
+</div>
+
+<div class="products">
+
+<div class="card" onclick="openProduct(1)">
+<img src="./img/soap.jpg">
+<h3>Magic Soap</h3>
+<p class="price">₹265</p>
+</div>
+
+<div class="card" onclick="openProduct(2)">
+<img src="./img/winter hoodies.jpg">
+<h3>Winter Hoodie</h3>
+<p class="price">₹999</p>
+</div>
+
+<div class="card" onclick="openProduct(3)">
+<img src="./img/storage box.jpeg">
+<h3>Storage Box</h3>
+<p class="price">₹499</p>
+</div>
+
+</div>
+
+<script>
+
+function searchProduct() {
+    let search = document.getElementById("searchInput").value.toLowerCase();
+
+    // If user searches for Nike shoes -> redirect to product1.html
+    if (search.includes("nike")) {
+
+        // Create the product object
+        const nikeProduct = {
+            id: 1,
+            name: "Nike Running Shoe",
+            price: 3999,
+            img: "img/shoe1.jpg",
+            desc: "High performance Nike running shoes"
+        };
+
+        // Save to localStorage
+        localStorage.setItem("selectedProduct", JSON.stringify(nikeProduct));
+
+        // Redirect
+        window.location.href = "product.html";
+    }
+}
+
+
+const products = [
+ {id:1,name:"Magic Soap",price:265,img:"./img/soap.jpg/300x200",desc:"Natural sandal soap for skin care"},
+ {id:2,name:"Winter Hoodie",price:999,img:"./img/winter hoodle.jpg/300x200",desc:"Warm stylish hoodie"},
+ {id:3,name:"Storage Box",price:499,img:"./img/storage box.jpg/300x200",desc:"Smart home storage box"}
+];
+
+function openProduct(id){
+  const product = products.find(p=>p.id===id);
+  localStorage.setItem("selectedProduct", JSON.stringify(product));
+  window.location.href="product1.html";
+}
+</script>
+    </body>
+</html>
+
+
+  
+
+  

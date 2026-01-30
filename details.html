@@ -1,0 +1,314 @@
+<!-- details.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enter Details</title>
+    <style>
+       body {
+    font-family: "Segoe UI", Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #eef2f7, #dbe4f0);
+    margin: 0;
+}
+
+/* Main container effect */
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Card style wrapper (body acts as center) */
+input, textarea, button {
+    width: 320px;
+    padding: 12px 14px;
+    margin: 10px 0;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 15px;
+    outline: none;
+    transition: all 0.2s ease;
+}
+
+/* Input focus animation */
+input:focus, textarea:focus {
+    border-color: #4CAF50;
+    box-shadow: 0 0 6px rgba(76, 175, 80, 0.4);
+}
+
+/* Address box */
+textarea {
+    resize: none;
+    height: 90px;
+}
+
+/* Button styling */
+button {
+    background: linear-gradient(135deg, #4CAF50, #2fa54a);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    margin-top: 15px;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
+
+/* Button hover */
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Button click */
+button:active {
+    transform: scale(0.98);
+}
+
+/* Card look using body spacing illusion */
+body::before {
+    content: "";
+    position: absolute;
+    width: 380px;
+    height: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 18px;
+    padding: 280px 0;
+    z-index: -1;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.18);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    input, textarea, button {
+        width: 90%;
+    }
+
+    body::before {
+        width: 95%;
+    }
+}
+
+    </style>
+</head>
+
+    <h2>Enter Your Details for Invoice</h2>
+    <input type="text" id="mobile" placeholder="Your Number" required>
+    <input type="email" id="email" placeholder="Your Email" required>
+    <textarea id="address"></textarea>
+    <button onclick="sendInvoice()">Send Invoice</button>
+<script>
+   /* function sendInvoice() {
+    const name = document.getElementById("name").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const amount = "100";
+
+    if (!name || !email) {
+        alert("Please enter name and email");
+        return;
+    }
+
+    fetch("http://localhost:5000/send-invoice", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, amount })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === "success") {
+            alert("Invoice sent successfully ✅");
+        } else {
+            alert("Invoice sending failed ❌");
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        alert("Server error ❌");
+    });
+}*/
+
+/*
+function sendInvoice() {
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+
+  if (!name || !email) {
+    alert("Please enter name and email");
+    return;
+  }
+
+  const orderId = "ORD" + Date.now();
+  const items = [
+    {
+      name: "Product Purchase",
+      qty: 1,
+      price: 100
+    }
+  ];
+  const totalAmount = 100;
+
+  fetch("http://localhost:5000/send-invoice", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email,
+      orderId,
+      items,
+      totalAmount
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    alert(data.message);
+  })
+  .catch(err => {
+    console.error(err);
+    alert("Server error ❌");
+  });
+}
+*/
+
+/* UPDATED SEND INVOICE CODE 
+
+function sendInvoice() {
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+
+  if (!name || !email) {
+    alert("Please enter name and email");
+    return;
+  }
+
+  const params = new URLSearchParams(window.location.search);
+const productId = params.get("id");
+
+
+  // Get purchased products from localStorage
+  const products = JSON.parse(localStorage.getItem("buyNowProduct")) || [];
+  if(products.length === 0){
+    alert("No products found for this purchase!");
+    return;
+  }
+
+  const orderId = "ORD" + Date.now();
+
+  // Build items array from products
+  const items = products.map(p => ({
+    name: p.name,
+    qty: p.quantity,
+    price: p.price
+  }));
+
+  // Calculate total amount
+  const totalAmount = products.reduce((sum, p) => sum + (p.price * p.quantity), 0);
+
+  // Send invoice to backend
+  fetch("http://localhost:5000/send-invoice", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      email,
+      orderId,
+      items,
+      totalAmount
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    alert(data.message);
+    // Clear purchased products after sending invoice
+    localStorage.removeItem("buyNowProduct");
+    localStorage.removeItem("cart");
+  })
+  .catch(err => {
+    console.error(err);
+    alert("Server error ❌");
+  });
+}
+*/
+
+function sendInvoice() {
+  const name = document.getElementById("mobile").value.trim();
+  const email = document.getElementById("email").value.trim();
+
+  if (!name || !email) {
+    alert("Please enter name and email");
+    return;
+  }
+
+  const products = JSON.parse(localStorage.getItem("buyNowProduct"));
+
+  if (!Array.isArray(products) || products.length === 0) {
+    alert("No products found for this purchase!");
+    return;
+  }
+
+  const orderId = "ORD" + Date.now();
+
+  const items = products.map(p => ({
+    name: p.name,
+    qty: p.quantity,
+    price: p.price
+  }));
+
+  const totalAmount = products.reduce(
+    (sum, p) => sum + p.price * p.quantity,
+    0
+  );
+
+  fetch("http://localhost:5000/send-invoice", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      name,
+      email,
+      orderId,
+      items,
+      totalAmount
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    alert(data.message || "Invoice sent successfully 📧");
+
+    localStorage.removeItem("buyNowProduct");
+    localStorage.removeItem("cart");
+  })
+  .catch(() => alert("Server error ❌"));
+}
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  const email = localStorage.getItem("userEmail");
+  const mobile = localStorage.getItem("userMobile");
+  const address = localStorage.getItem("userAddress");
+
+  // assuming you have input fields with these IDs
+
+  if(email) document.getElementById("email").value = email;
+  if(mobile) document.getElementById("mobile").value = mobile;
+  if(address) document.getElementById("address").value = address;
+
+});
+
+
+
+if(localStorage.getItem("paymentStatus") !== "success"){
+   alert("Please complete payment first!");
+   window.location.href="cart.html";
+}
+
+
+
+</script>
+</body>
+</html>

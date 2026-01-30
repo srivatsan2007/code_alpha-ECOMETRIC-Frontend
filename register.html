@@ -1,0 +1,191 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECOMETRIX</title>
+    <link rel="icon" type="Image/jpeg" href="logo.png">
+    <style>
+        .slogan {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* Page Background */
+body {
+    min-height: 100vh;
+    background: #2872A1 ; /* your background image */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Overlay for better visibility */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: #2872A1 ;
+    z-index: -1;
+}
+
+/* Form Container */
+.register-container {
+    width: 420px;
+    padding: 35px;
+    border-radius: 15px;
+
+    /* Glass Effect */
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    box-shadow: 0 8px 32px white;
+    border: 1px solid rgba(13, 100, 222, 0.929);
+
+    color: #fff;
+}
+
+/* Title */
+.register-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 28px;
+}
+
+/* Input Groups */
+.form-group {
+    margin-bottom: 15px;
+}
+
+/* Inputs */
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    background: rgba(255, 255, 255, 0.85);
+    font-size: 14px;
+}
+
+/* Placeholder */
+.form-group input::placeholder {
+    color: #555;
+}
+
+/* Button */
+.register-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.register-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 114, 255, 0.6);
+}
+
+/* Login link */
+.login-link {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.login-link a {
+    color: #00e5ff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    .register-container {
+        width: 90%;
+        padding: 25px;
+    }
+}
+    </style>
+    </head>
+    <body>
+        <!--<h3 class="title"> Welcome to ECOMETRIX </h3>
+        <p class="slogan">  “Smart Shopping . Simplified.”</p>
+        <p class="slogan"> “Next-Gen E-Commerce Platform”</p>
+    -->
+        <div class="register-container">
+    <h2>ECOMETRIX</h2>
+    <p class="slogan"> “Smart Shopping . Simplified.” </p>
+    <p class="slogan"> “Next-Gen E-Commerce Platform”</p>
+
+    <form id="registerForm">
+
+  <div class="form-group">
+    <input type="text" id="name" placeholder="Name" required>
+  </div>
+
+  <div class="form-group">
+    <input type="text" id="mobile" placeholder="Mobile Number" required>
+  </div>
+
+  <div class="form-group">
+    <input type="text" id="address" placeholder="Address" required>
+  </div>
+
+  <div class="form-group">
+    <input type="text" id="pincode" placeholder="Pincode" required>
+  </div>
+
+  <div class="form-group">
+    <input type="email" id="email" placeholder="Email Address" required>
+  </div>
+
+  <div class="form-group">
+    <input type="password" id="password" placeholder="Password" required>
+  </div>
+
+  <div class="form-group">
+    <select id="role" required>
+      <option value="">Select Role</option>
+      <option value="user">User</option>
+      <option value="admin">Admin</option>
+    </select>
+  </div>
+
+  <label>
+    <input type="checkbox" required>
+    Terms and conditions
+    <a href="terms_conditions.txt">Click Me to View</a>
+  </label>
+
+  <button type="submit" class="register-btn">Register</button>
+
+  <div class="login-link">
+    Already have an account? <a href="login.html">Login</a>
+  </div>
+
+</form>
+
+        <script src="register.js"></script>
+
+    </body>
+</html>

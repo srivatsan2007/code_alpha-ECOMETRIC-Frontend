@@ -1,0 +1,312 @@
+<!-- payment.html 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UPI Payment</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            background: #f0f2f5;
+        }
+        img {
+            width: 250px;
+            height: 250px;
+        }
+        p {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Scan to Pay via UPI</h2>
+    <img src="./img/sriva-1024.jpeg" alt="UPI QR Code">
+    <p>QR code expires in <span id="timer">30</span> seconds</p>
+
+    <script>
+        // get product id from URL
+  const params = new URLSearchParams(window.location.search);
+  const productId = params.get("id");
+
+        let timeLeft = 30;
+        const timerEl = document.getElementById("timer");
+
+        const countdown = setInterval(() => {
+            timeLeft--;
+            timerEl.textContent = timeLeft;
+            if(timeLeft <= 0){
+                clearInterval(countdown);
+                // Redirect to details form
+                window.location.href = "details.html";
+            }
+        }, 1000);
+
+        
+
+
+
+    
+  /*const params = new URLSearchParams(window.location.search);
+  const productId = params.get("id");
+
+  if (!sessionStorage.getItem("paymentRedirected")) {
+    sessionStorage.setItem("paymentRedirected", "true");
+
+    setTimeout(() => {
+      window.location.href = `details.html?id=${productId}`;
+    }, 30000);
+  }*/
+
+
+    </script>
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>UPI Payment</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+  font-family:Arial;
+  background:#f0f2f5;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+.payment-box{
+  background:white;
+  padding:25px;
+  width:320px;
+  border-radius:12px;
+  box-shadow:0 10px 25px rgba(0,0,0,.2);
+  text-align:center;
+}
+
+.payment-box img{
+  width:200px;
+  margin:15px 0;
+}
+
+.timer{
+  font-size:18px;
+  margin:10px 0;
+}
+
+.btn{
+  padding:12px;
+  width:100%;
+  border:none;
+  border-radius:6px;
+  margin-top:10px;
+  font-size:15px;
+  cursor:pointer;
+}
+
+.pay{
+  background:#28a745;
+  color:white;
+}
+
+.cancel{
+  background:#dc3545;
+  color:white;
+}
+</style>
+</head>
+
+<body>
+
+<div class="payment-box">
+  <h3>UPI Payment</h3>
+
+  <p>Paying to: <b>demo@upi</b></p>
+  <p>Amount: ₹<span id="amount">0</span></p>
+
+  <img src="./img/sriva-1024.jpeg">
+
+  <div class="timer">
+    Time left: <span id="timer">30</span>s
+  </div>
+
+  <button class="btn pay" onclick="success()">Payment Done</button>
+  <button class="btn cancel" onclick="failed()">Cancel</button>
+</div>
+
+<script>
+/*const params = new URLSearchParams(window.location.search);
+const amount = params.get("amount") || 0;
+
+document.getElementById("amount").innerText = amount;
+
+let time = 30;
+const timerEl = document.getElementById("timer");
+
+const interval = setInterval(()=>{
+  time--;
+  timerEl.innerText = time;
+
+  if(time<=0){
+    clearInterval(interval);
+    failed();
+  }
+},1000);
+
+
+document.getElementById("amount").innerText = amount;
+
+let time = 30;
+const timerEl = document.getElementById("timer");
+
+// generate fake transaction ID
+function generateTxn(){
+  return "TXN" + Date.now() + Math.floor(Math.random()*1000);
+}
+
+const interval = setInterval(()=>{
+  time--;
+  timerEl.innerText = time;
+  if(time<=0){
+    failed();
+  }
+},1000);
+
+async function success(){
+
+  clearInterval(interval);
+
+  const transactionId = generateTxn();
+
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  await fetch("http://localhost:5000/api/payment/success",{
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({
+      transactionId,
+      amount,
+      products: cart
+    })
+  });
+
+  localStorage.setItem("lastTransaction", transactionId);
+  localStorage.setItem("paymentStatus","success");
+
+  window.location.href = "receipt.html";
+}
+
+function failed(){
+  clearInterval(interval);
+  alert("Payment Failed ❌");
+  window.location.href="cart.html";
+}
+
+
+
+function success(){
+  clearInterval(interval);
+
+  // fake payment success
+  localStorage.setItem("paymentStatus","success");
+
+  alert("Payment Successful ✅");
+
+  window.location.href="details.html";
+}
+
+function failed(){
+  clearInterval(interval);
+
+  localStorage.setItem("paymentStatus","failed");
+
+  alert("Payment Failed ❌");
+
+  window.location.href="cart.html";
+}*/
+const params = new URLSearchParams(window.location.search);
+const amount = params.get("amount") || 0;
+
+document.getElementById("amount").innerText = amount;
+
+let time = 30;
+const timerEl = document.getElementById("timer");
+
+// Generate fake transaction ID
+function generateTxn(){
+  return "TXN" + Date.now() + Math.floor(Math.random() * 1000);
+}
+
+// Countdown timer
+const interval = setInterval(() => {
+  time--;
+  timerEl.innerText = time;
+
+  if(time <= 0){
+    clearInterval(interval);
+    failed();
+  }
+}, 1000);
+
+
+// PAYMENT SUCCESS
+async function success(){
+
+  clearInterval(interval);
+
+  const transactionId = generateTxn();
+
+  const cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+  try{
+    await fetch("http://localhost:5000/api/payment/success",{
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify({
+        transactionId,
+        amount,
+        products: cart
+      })
+    });
+
+    localStorage.setItem("lastTransaction", transactionId);
+    localStorage.setItem("paymentStatus","success");
+
+    window.location.href = "details.html";
+
+
+  }catch(err){
+    alert("Server error while saving payment ❌");
+    console.error(err);
+  }
+}
+
+
+// PAYMENT FAILED / CANCEL
+function failed(){
+  clearInterval(interval);
+
+  localStorage.setItem("paymentStatus","failed");
+
+  alert("Payment Failed ❌");
+
+  window.location.href = "cart.html";
+}
+
+
+</script>
+
+</body>
+</html>
