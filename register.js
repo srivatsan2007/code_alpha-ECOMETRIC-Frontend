@@ -13,7 +13,7 @@ document.getElementById("registerForm").addEventListener("submit", async functio
   };
 
   try {
-    const response = await fetch("http://localhost:5000/register", {
+    const response = await fetch("https://code-alpha-ecometric-backend-1.onrender.com/register", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -35,3 +35,4 @@ document.getElementById("registerForm").addEventListener("submit", async functio
     alert("Server error");
   }
 });
+
