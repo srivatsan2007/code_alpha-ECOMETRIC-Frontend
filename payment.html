@@ -271,7 +271,7 @@ async function success(){
   const cart = JSON.parse(localStorage.getItem("cart")) || [];
 
   try{
-    await fetch("http://localhost:5000/api/payment/success",{
+    await fetch("https://code-alpha-ecometric-backend-1.onrender.com/api/payment/success",{
       method:"POST",
       headers:{ "Content-Type":"application/json" },
       body: JSON.stringify({
@@ -310,3 +310,4 @@ function failed(){
 
 </body>
 </html>
+
