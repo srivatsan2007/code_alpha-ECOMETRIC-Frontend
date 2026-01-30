@@ -326,7 +326,7 @@ async function addToCart(productId){
 
   const product = products.find(p => p.id === productId);
 
-  await fetch("http://localhost:5000/api/cart/add",{
+  await fetch("https://code-alpha-ecometric-backend-1.onrender.com/api/cart/add",{
     method:"POST",
     headers:{ "Content-Type":"application/json" },
     body: JSON.stringify({
@@ -385,3 +385,4 @@ renderProducts();
 
 </body>
 </html>
+
