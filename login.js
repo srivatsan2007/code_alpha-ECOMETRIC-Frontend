@@ -20,7 +20,7 @@ document.getElementById("loginForm").addEventListener("submit", async function (
     });*/
 
     try {
-      const response = await fetch("http://localhost:5000/login", {
+      const response = await fetch("https://code-alpha-ecometric-backend-1.onrender.com/login", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify(loginData)
@@ -70,4 +70,5 @@ localStorage.setItem("user", JSON.stringify({
 /*localStorage.removeItem("user");*/  
 
 });
+
 
