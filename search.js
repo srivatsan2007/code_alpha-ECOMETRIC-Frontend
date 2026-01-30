@@ -109,7 +109,7 @@
 
   try {
     const res = await fetch(
-      `http://localhost:5000/api/products/search?query=${encodeURIComponent(query)}`
+      `https://code-alpha-ecometric-backend-1.onrender.com/api/products/search?query=${encodeURIComponent(query)}`
     );
 
     if (!res.ok) {
@@ -126,3 +126,4 @@
     console.error("Search error:", err);
   }
 }
+
