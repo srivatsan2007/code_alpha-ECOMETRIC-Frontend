@@ -35,7 +35,7 @@ document.getElementById("loginForm").addEventListener("submit", async function (
       localStorage.setItem("user", JSON.stringify(result));
 
       if (result.role === "admin") {
-        window.location.href = "./index.html";
+        window.location.href = "./admin.html";
       } else if (result.role === "user") {
         window.location.href = "./user-dashboard.html";
       } else {
@@ -70,3 +70,4 @@ localStorage.setItem("user", JSON.stringify({
 /*localStorage.removeItem("user");*/  
 
 });
+
